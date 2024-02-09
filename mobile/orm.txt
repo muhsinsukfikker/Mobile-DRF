@@ -1,0 +1,59 @@
+
+class Mobiles(models.Model):
+    name=models.CharField(max_length=200,unique=True)
+    price=models.PositiveIntegerField()
+    brand=models.CharField(max_length=200)
+    specs=models.CharField(max_length=200)
+    display=models.CharField(max_length=200)
+
+
+python manage.py shell
+
+orm query (create)
+model_name.objects.create(field_name=value)
+
+orm (fetch)
+model_name.objects.all()
+
+orm (specific objects only)
+model_name.objects.get(id=2)
+
+orm (filter)
+model_name.objects.filter(id=2)
+
+orm (delete)
+model_name.objects.filter(id=4).delete()
+
+orm (update)
+model_name.objects.filter(id=4).update()
+
+orm (osrt)
+model_name.objects.all().order_by('price')
+
+orm (1 col)
+model_name.objects.values('brand')
+
+field lookup
+<=(__lte)
+>=(__gt)
+
+eg:
+
+from mobile.models import Mobiles  
+
+Mobiles.objects.create(name='iphone 5s',price=20000,brand='iphone',specs='128 GB RAM',display='iphone')
+qs=Mobiles.objects.all()
+qs=Mobiles.objects.get(id=2)
+qs=Mobiles.objects.filter(brand='iphone')
+
+
+qs=Mobiles.objects.filter(price__lte 50000)
+qs=Mobiles.objects.exclude(brand='iphone') 
+
+Mobiles.objects.filter(id=4).delete()
+Mobiles.objects.filter(id=5).update(display='led')
+
+ qs=Mobiles.objects.all().order_by('price')  #asc
+ qs=Mobiles.objects.all().order_by('price') #desc
+
+qs=Mobiles.objects.values_list('brand',flat=True) 
